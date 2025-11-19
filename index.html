@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice - CRUD</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+
+    <h1>CRUD</h1>
+    <hr>
+
+    <form>
+        <label for="nev">Név</label><br>
+        <input type="text" name="nev" id="nev"><br><br>
+
+        <label for="kor">Kor</label><br>
+        <input type="number" name="kor" id="kor"><br><br>
+
+        <label for="pozicio">Pozíció</label><br>
+        <input type="text" name="pozicio" id="pozicio"><br><br>
+
+        <label for="ber">Bérigényed</label><br>
+        <input type="number" name="ber" id="ber"><br><br>
+
+        <button type="button" id="kuldes">Küldés</button>
+    </form>
+
+    <br><br>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Név</th>
+                <th>Kor</th>
+                <th>Pozíció</th>
+                <th>Bérigény</th>
+            </tr>
+        </thead>
+        <tbody id="torzs"></tbody>
+
+    </table>
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
