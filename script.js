@@ -10,8 +10,8 @@ const korInput = document.getElementById("kor");
 const poziInput = document.getElementById("pozicio");
 const berInput = document.getElementById("ber");
 
-//------------Fuggvenyek--------------------
-//kiurit
+//FV---------------
+//kiurites
 function kiurit(){
     nevInput.value = "";
     korInput.value = "";
@@ -31,28 +31,10 @@ function kiurit(){
     szID = null;
 }
 
-//hibas adat
-function hibaEmber(input,message){
-    input.value = "";
-    input.classList.add("error");
-    input.placeholder = message;
-}
-
-//objektum torlese
-function torolEmber(id){
-    const index = emberek.findIndex(function(ember){
-        return ember.id === id;
-    });
-    if(index !== -1){
-        emberek.splice(index,1);
-    };
-    kiir();
-}
-
-//objektum szerkesztese
+// Szerkesztes
 function szerkesztEmber(id){
-    const kember = emberek.find(function(ember){
-        return ember.id === id;
+    const kember = emberek.find(function(ember){ 
+    return ember.id === id;
     });
     if(!kember){
         return;
@@ -65,12 +47,30 @@ function szerkesztEmber(id){
     szID = id;
 }
 
-// kiiratas tablazatba
+//torles
+function torolEmber(id){
+    const i = emberek.findIndex(function(e){
+        return e.id === id;
+    });
+    if(i !== -1){
+        emberek.splice(i,1);
+        kiir();
+    };
+}
+
+// hiba
+function hibaEmber(input,message){
+    input.value = "";
+    input.classList.add("error");
+    input.placeholder = message;
+};
+
+//kiir
 function kiir(){
     const torzs = document.getElementById("torzs");
     torzs.innerHTML = "";
 
-    emberek.forEach(function(ember){
+    for(let i = 0; i < emberek.length; i++){
         const tr = document.createElement("tr");
 
         const td1 = document.createElement("td");
@@ -79,28 +79,29 @@ function kiir(){
         const td4 = document.createElement("td");
         const td5 = document.createElement("td");
 
-        td1.textContent = ember.nev;
-        td2.textContent = ember.kor;
-        td3.textContent = ember.pozi;
-        td4.textContent = ember.ber;
+        td1.textContent = emberek[i].nev;
+        td2.textContent = emberek[i].kor;
+        td3.textContent = emberek[i].pozi;
+        td4.textContent = emberek[i].ber;
 
         //torles gomb
-        const torles = document.createElement("button");
-        torles.textContent = "Torles";
 
-        torles.addEventListener("click", function(){
-            torolEmber(ember.id);
+        const torol = document.createElement("button");
+        torol.textContent = "Torles";
+
+        torol.addEventListener("click", function(){
+            torolEmber(emberek[i].id);
         });
-        td5.appendChild(torles);
+        td5.appendChild(torol);
 
         //szerkesztes gomb
-        const szerkesztes = document.createElement("button");
-        szerkesztes.textContent = "Szerkesztes";
+        const szerkeszt = document.createElement("button");
+        szerkeszt.textContent = "Szerkesztes";
 
-        szerkesztes.addEventListener("click", function(){
-            szerkesztEmber(ember.id);
+        szerkeszt.addEventListener("click", function(){
+            szerkesztEmber(emberek[i].id);
         });
-        td5.appendChild(szerkesztes);
+        td5.appendChild(szerkeszt);
 
         tr.appendChild(td1);
         tr.appendChild(td2);
@@ -109,52 +110,52 @@ function kiir(){
         tr.appendChild(td5);
 
         torzs.appendChild(tr);
-    });
+    };
 };
 
-// click
+//click
 document.getElementById("kuldes").addEventListener("click", function(){
-    let nevVal = nevInput.value.trim();
-    let korVal = Number(korInput.value.trim());
-    let poziVal = poziInput.value.trim();
-    let berVal = Number(berInput.value.trim());
+    let nevv = nevInput.value.trim();
+    let korv = Number(korInput.value.trim());
+    let poziv = poziInput.value.trim();
+    let berv = Number(berInput.value.trim());
 
-    if(!nevVal){
+    if(!nevv){
         hibaEmber(nevInput,"Add meg a neved!");
         return;
     };
-    if(isNaN(korVal) || korVal < 18 ||korVal > 70){
-        hibaEmber(korInput,"min:18 - max:70");
+    if(isNaN(korv) || korv < 18 || korv > 70){
+        hibaEmber(korInput,"hiba");
         return;
     };
-    if(!poziVal){
-        hibaEmber(poziInput,"Add meg a kivant poziciot!");
+    if(!poziv){
+        hibaEmber(poziInput,"Hiba");
         return;
     };
-    if(isNaN(berVal) || berVal <= 0 || berVal > 10000000){
-        hibaEmber(berInput,"Helytelen osszeget adtal meg!");
+    if(isNaN(berv) || berv <= 0 || berv > 100000000){
+        hibaEmber(berInput,"Hiba");
         return;
     };
 
     if(szID === null){
-        const ujEmber = {
+        const uj = {
             id: Date.now(),
-            nev:nevVal,
-            kor:korVal,
-            pozi:poziVal,
-            ber:berVal
+            nev:nevv,
+            kor:korv,
+            pozi:poziv,
+            ber:berv
         };
-        emberek.push(ujEmber);
+        emberek.push(uj);
     }
     else{
-        const index = emberek.findIndex(function(ember){
-            return szID === ember.id;
+        const i = emberek.findIndex(function(e){
+            return e.id === szID;
         });
-        if(index !== -1){
-            emberek[index].nev = nevVal;
-            emberek[index].kor = korVal;
-            emberek[index].pozi = poziVal;
-            emberek[index].ber = berVal;
+        if(i !== -1){
+            emberek[i].nev = nevv;
+            emberek[i].kor = korv;
+            emberek[i].pozi = poziv;
+            emberek[i].ber = berv;
         };
     };
     kiir();
