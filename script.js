@@ -1,7 +1,7 @@
 //tomb
 const emberek = [];
 
-//szerkesztes
+//szerkesztes eldontese
 let szID = null;
 
 //DOM cache
@@ -10,131 +10,129 @@ const korInput = document.getElementById("kor");
 const poziInput = document.getElementById("pozicio");
 const berInput = document.getElementById("ber");
 
-// ------------- Fuggvenyek ------------
+//------------Fuggvenyek--------------------
+//kiurit
+function kiurit(){
+    nevInput.value = "";
+    korInput.value = "";
+    poziInput.value = "";
+    berInput.value = "";
 
-    //kiurit
-    function kiurit(){
-        nevInput.value = "";
-        korInput.value = "";
-        poziInput.value = "";
-        berInput.value = "";
+    nevInput.classList.remove("error");
+    korInput.classList.remove("error");
+    poziInput.classList.remove("error");
+    berInput.classList.remove("error");
 
-        nevInput.classList.remove("error");
-        korInput.classList.remove("error");
-        poziInput.classList.remove("error");
-        berInput.classList.remove("error");
+    nevInput.placeholder = "";
+    korInput.placeholder = "";
+    poziInput.placeholder = "";
+    berInput.placeholder = "";
 
-        nevInput.placeholder = "";
-        korInput.placeholder = "";
-        poziInput.placeholder = "";
-        berInput.placeholder = "";
+    szID = null;
+}
 
-        szID = null;
-    }
+//hibas adat
+function hibaEmber(input,message){
+    input.value = "";
+    input.classList.add("error");
+    input.placeholder = message;
+}
 
-    //hiba
-    function hibaEmber(input,message){
-        input.value = "";
-        input.classList.add("error");
-        input.placeholder = message;
-    }
-
-    //Torles
-    function torolEmber(id){
-        const index = emberek.findIndex(function(ember){
-            return ember.id === id;
-        });
-        if(index !== -1){
-            emberek.splice(index,1);
-            kiir();
-        };
-    }
-
-    //Szerkesztes
-    function szerkesztEmber(id){
-        const kember = emberek.find(function(ember){
-            return ember.id === id;
-        });
-        if(!kember){
-            return;
-        };
-
-        nevInput.value = kember.nev;
-        korInput.value = kember.kor;
-        poziInput.value = kember.pozi;
-        berInput.value = kember.ber;
-
-        szID = id;
-    }
-
-    //kiiratas
-    function kiir(){
-        const torzs = document.getElementById("torzs");
-        torzs.innerHTML = "";
-
-        emberek.forEach(function(ember){
-            const tr = document.createElement("tr");
-
-            const td1 = document.createElement("td");
-            const td2 = document.createElement("td");
-            const td3 = document.createElement("td");
-            const td4 = document.createElement("td");
-            const td5 = document.createElement("td");
-
-            td1.textContent = ember.nev;
-            td2.textContent = ember.kor;
-            td3.textContent = ember.pozi;
-            td4.textContent = ember.ber;
-
-            //torles gomb
-            const torles = document.createElement("button");
-            torles.textContent = "Törlés";
-
-            torles.addEventListener("click", function(){
-                torolEmber(ember.id);
-            });
-            td5.appendChild(torles);
-
-            //szerkesztes
-            const szerkesztes = document.createElement("button");
-            szerkesztes.textContent = "Szerkesztés";
-
-            szerkesztes.addEventListener("click", function(){
-                szerkesztEmber(ember.id);
-            });
-            td5.appendChild(szerkesztes);
-
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-            tr.appendChild(td3);
-            tr.appendChild(td4);
-            tr.appendChild(td5);
-
-            torzs.appendChild(tr);
-        });
+//objektum torlese
+function torolEmber(id){
+    const index = emberek.findIndex(function(ember){
+        return ember.id === id;
+    });
+    if(index !== -1){
+        emberek.splice(index,1);
     };
+    kiir();
+}
 
-// ---Click---
+//objektum szerkesztese
+function szerkesztEmber(id){
+    const kember = emberek.find(function(ember){
+        return ember.id === id;
+    });
+    if(!kember){
+        return;
+    };
+    nevInput.value = kember.nev;
+    korInput.value = kember.kor;
+    poziInput.value = kember.pozi;
+    berInput.value = kember.ber;
+
+    szID = id;
+}
+
+// kiiratas tablazatba
+function kiir(){
+    const torzs = document.getElementById("torzs");
+    torzs.innerHTML = "";
+
+    emberek.forEach(function(ember){
+        const tr = document.createElement("tr");
+
+        const td1 = document.createElement("td");
+        const td2 = document.createElement("td");
+        const td3 = document.createElement("td");
+        const td4 = document.createElement("td");
+        const td5 = document.createElement("td");
+
+        td1.textContent = ember.nev;
+        td2.textContent = ember.kor;
+        td3.textContent = ember.pozi;
+        td4.textContent = ember.ber;
+
+        //torles gomb
+        const torles = document.createElement("button");
+        torles.textContent = "Torles";
+
+        torles.addEventListener("click", function(){
+            torolEmber(ember.id);
+        });
+        td5.appendChild(torles);
+
+        //szerkesztes gomb
+        const szerkesztes = document.createElement("button");
+        szerkesztes.textContent = "Szerkesztes";
+
+        szerkesztes.addEventListener("click", function(){
+            szerkesztEmber(ember.id);
+        });
+        td5.appendChild(szerkesztes);
+
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        tr.appendChild(td5);
+
+        torzs.appendChild(tr);
+    });
+};
+
+// click
 document.getElementById("kuldes").addEventListener("click", function(){
     let nevVal = nevInput.value.trim();
-    let korVal = Number(korInput.value);
+    let korVal = Number(korInput.value.trim());
     let poziVal = poziInput.value.trim();
-    let berVal = Number(berInput.value);
+    let berVal = Number(berInput.value.trim());
 
     if(!nevVal){
         hibaEmber(nevInput,"Add meg a neved!");
         return;
     };
-    if(isNaN(korVal) ||korVal < 18 || korVal > 70){
+    if(isNaN(korVal) || korVal < 18 ||korVal > 70){
         hibaEmber(korInput,"min:18 - max:70");
         return;
     };
     if(!poziVal){
-        hibaEmber(poziInput,"Add meg a pozíciót!");
+        hibaEmber(poziInput,"Add meg a kivant poziciot!");
         return;
-    }
+    };
     if(isNaN(berVal) || berVal <= 0 || berVal > 10000000){
-        hibaEmber(berInput,"Helytelen fizetési adatot adtál meg!");
+        hibaEmber(berInput,"Helytelen osszeget adtal meg!");
         return;
     };
 
@@ -150,7 +148,7 @@ document.getElementById("kuldes").addEventListener("click", function(){
     }
     else{
         const index = emberek.findIndex(function(ember){
-            return ember.id === szID;
+            return szID === ember.id;
         });
         if(index !== -1){
             emberek[index].nev = nevVal;
