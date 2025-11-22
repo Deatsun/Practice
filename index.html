@@ -4,46 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practice - CRUD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    
 </head>
 <body>
+<div class="container">
+    <div class="row">
 
-    <h1>CRUD</h1>
-    <hr>
+        <div class="col" id="cim">
+            <h1>C.R.U.D</h1>
+        </div>
 
-    <form>
-        <label for="nev">Név</label><br>
-        <input type="text" name="nev" id="nev"><br><br>
+    </div>
 
-        <label for="kor">Kor</label><br>
-        <input type="number" name="kor" id="kor"><br><br>
+    <form class="row">
+        <div class="col-12 col-lg-3">
+            <label for="nev" class="form-label">Felhasználó név</label>
+            <input type="text" name="nev" id="nev" class="form-control" placeholder="Deatsun">
+        </div>
 
-        <label for="pozicio">Pozíció</label><br>
-        <input type="text" name="pozicio" id="pozicio"><br><br>
+        <div class="col-12 col-lg-3">
+            <label for="kor" class="form-label">Hány éves vagy?</label>
+            <input type="number" name="kor" id="kor" class="form-control" placeholder="18">
+        </div>
 
-        <label for="ber">Bérigényed</label><br>
-        <input type="number" name="ber" id="ber"><br><br>
+        <div class="col-12 col-lg-3">
+            <label for="pozicio" class="form-label">Pozíciód</label>
+            <input type="text" name="pozicio" id="pozicio" class="form-control" placeholder="Healer">
+        </div>
 
-        <button type="button" id="kuldes">Küldés</button>
+        <div class="col-12 col-lg-3">
+            <label for="ber" class="form-label">Bérigényed</label>
+            <input type="number" name="ber" id="ber" class="form-control" placeholder="500000">
+        </div>
+
+        <div class="col-4">
+            <button type="button" id="kuldes">Küldés</button>
+        </div>
     </form>
 
-    <br><br>
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Név</th>
+                        <th>Kor</th>
+                        <th>Pozi</th>
+                        <th>Bér</th>
+                    </tr>
+                </thead>
+                <tbody id="torzs"></tbody>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Név</th>
-                <th>Kor</th>
-                <th>Pozíció</th>
-                <th>Bérigény</th>
-            </tr>
-        </thead>
-        <tbody id="torzs"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-    </table>
-    
 
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
