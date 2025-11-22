@@ -1,17 +1,4 @@
-//tomb
-const emberek = [];
-
-//szerkesztes mod
-let szID = null;
-
-//DOM
-const nevInput = document.getElementById("nev");
-const korInput = document.getElementById("kor");
-const poziInput = document.getElementById("pozicio");
-const berInput = document.getElementById("ber");
-
-// függvények--------------
-
+// Fuggvenyek
     //-kiurites
     function kiurit(){
         nevInput.value = "";
@@ -32,28 +19,28 @@ const berInput = document.getElementById("ber");
         szID = null;
     }
 
-    //-hiba
+    //-Hiba
     function hibaE(input,message){
         input.value = "";
         input.classList.add("error");
         input.placeholder = message;
-    };
+    }
 
-    //torles
+    //-Torles
     function torolE(id){
-        const i = emberek.findIndex(function(e){
-            return e.id === id;
+        const index = emberek.findIndex(function(ember){
+            return ember.id === id;
         });
-        if(i !== -1){
-            emberek.splice(i,1);
+        if(index !== -1){
+            emberek.splice(index,1);
             kiir();
         };
-    };
+    }
 
-    //szerkesztes
+    //-Szerkesztes
     function szerkesztE(id){
-        const kember = emberek.find(function(e){
-            return e.id === id;
+        const kember = emberek.find(function(ember){
+            return ember.id === id;
         });
         if(!kember){
             return;
@@ -64,9 +51,10 @@ const berInput = document.getElementById("ber");
         berInput.value = kember.ber;
 
         szID = id;
-    };
+         kiir();
+    }
 
-    //kiiratas
+    //-Kiiratas
     function kiir(){
         const torzs = document.getElementById("torzs");
         torzs.innerHTML = "";
@@ -89,7 +77,7 @@ const berInput = document.getElementById("ber");
             const torles = document.createElement("button");
             torles.textContent = "Törlés";
 
-            torles.addEventListener("click", function(){
+            torles.addEventListener("click",function(){
                 torolE(ember.id);
             });
             td5.appendChild(torles);
@@ -111,9 +99,24 @@ const berInput = document.getElementById("ber");
 
             torzs.appendChild(tr);
         });
-    };
+    }
 
-// click esemeny
+
+
+
+//tomb letrehozasa
+const emberek = [];
+
+//szerkesztes eldontese
+let szID = null;
+
+//DOM cache
+const nevInput = document.getElementById("nev");
+const korInput = document.getElementById("kor");
+const poziInput = document.getElementById("pozicio");
+const berInput = document.getElementById("ber");
+
+//click esemeny
 document.getElementById("kuldes").addEventListener("click", function(){
     let nevVal = nevInput.value.trim();
     let korVal = Number(korInput.value.trim());
@@ -124,22 +127,23 @@ document.getElementById("kuldes").addEventListener("click", function(){
         hibaE(nevInput,"Add meg a neved!");
         return;
     };
-    if(isNaN(korVal) ||korVal < 18 || korVal > 70){
+    if(isNaN(korVal) || korVal < 18 || korVal > 70){
         hibaE(korInput,"min:18 - max:70!");
         return;
     };
     if(!poziVal){
-        hibaE(poziInput,"Add meg a pozíciót!");
+        hibaE(poziInput,"Add meg a poziciót!");
         return;
     };
-    if(isNaN(berVal) || berVal <= 0 ||berVal > 10000000){
+    if(isNaN(berVal) || berVal <= 0 || berVal > 10000000){
         hibaE(berInput,"Helytelen összeget adtál meg!");
         return;
     };
 
+
     if(szID === null){
         const ujEmber = {
-            id: Date.now(),
+            id:Date.now(),
             nev:nevVal,
             kor:korVal,
             pozi:poziVal,
@@ -148,16 +152,16 @@ document.getElementById("kuldes").addEventListener("click", function(){
         emberek.push(ujEmber);
     }
     else{
-        const i = emberek.findIndex(function(e){
-            return e.id === szID;
+        const index = emberek.findIndex(function(ember){
+          return ember.id === szID;
         });
-        if(i !== -1){
-            emberek[i].nev = nevVal;
-            emberek[i].kor = korVal;
-            emberek[i].pozi = poziVal;
-            emberek[i].ber = berVal;
+        if(index !== -1){
+            emberek[index].nev = nevVal;
+            emberek[index].kor = korVal;
+            emberek[index].pozi = poziVal;
+            emberek[index].ber = berVal;
         };
     };
     kiir();
     kiurit();
-})
+});
