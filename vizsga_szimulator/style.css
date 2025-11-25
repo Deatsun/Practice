@@ -1,0 +1,33 @@
+main{
+    margin: auto;
+    text-align: center;
+}
+header{
+    background-color: grey;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+form{
+    margin-bottom: 50px;
+}
+table{
+    border-collapse: collapse;
+    text-align: center;
+    margin: 0 auto;
+
+}
+tr,th,td{
+    border: 2px solid black;
+    padding: 2px;
+}
+
+footer{
+    text-align: center;
+    margin-top: 50px;
+}
+.error::placeholder{
+    color: red;
+}

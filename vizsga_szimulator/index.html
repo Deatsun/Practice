@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álláshirdetes kezelo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Álláshirdetés kezelő</h1>
+    </header>
+
+    <main>
+        <form>
+            <label for="pozi">Pozició megnevezeése</label><br>
+            <input type="text" id="pozi" name="pozi" placeholder="Szakács"><br><br>
+
+            <label for="ceg">Cég neve</label><br>
+            <input type="text" id="ceg" name="ceg" placeholder="Berenyi kft"><br><br>
+
+            <label for="fizu">Fizetés</label><br>
+            <input type="number" id="fizu" name="fizu" placeholder="500000"><br><br>
+
+            <label for="hely">Munkavegzes helye</label><br>
+            <input type="text" id="hely" name="hely" placeholder="Budapest"><br><br>
+
+            <button type="button" id="mentes">Mentés</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Pozicio</th>
+                    <th>Ceg nev</th>
+                    <th>Fizetes</th>
+                    <th>Hely</th>
+                </tr>
+            </thead>
+            <tbody id="torzs"></tbody>
+        </table>
+    </main>
+
+    <footer>@ 2025 Álláshirdetés kezelő</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
